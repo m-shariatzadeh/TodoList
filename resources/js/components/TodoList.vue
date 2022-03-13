@@ -1,16 +1,23 @@
 <template>
-    <div>
+
         <div class="row">
-            <div class="col" id="todoItems">
-                <ul id="list">
-                    <li v-for="todo in allTodos" :id="todo.id">
-                        {{ todo.name }}
-                        <button class="btn text-danger" @click="removeTodo($event)">&times;</button>
-                    </li>
-                </ul>
+            <div class="col-md-4 offset-md-3" id="todoItems">
+                <table class="table table-hover table-striped mt-3 text-center">
+                    <thead>
+                        <tr>
+                            <th>Task</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="list">
+                        <tr v-for="todo in allTodos">
+                            <td>{{ todo.name }}</td>
+                            <td :id="todo.id"><button class="btn btn-danger" @click="removeTodo($event)">Delete</button></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
-    </div>
 </template>
 
 <script>
@@ -19,7 +26,7 @@
         data() {
             return {
                 allTodos: [],
-                task: ''
+                task: '',
             }
         },
         mounted() {

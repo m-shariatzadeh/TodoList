@@ -5414,6 +5414,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -28175,40 +28182,62 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col", attrs: { id: "todoItems" } }, [
+  return _c("div", { staticClass: "row" }, [
+    _c(
+      "div",
+      { staticClass: "col-md-4 offset-md-3", attrs: { id: "todoItems" } },
+      [
         _c(
-          "ul",
-          { attrs: { id: "list" } },
-          _vm._l(_vm.allTodos, function (todo) {
-            return _c("li", { attrs: { id: todo.id } }, [
-              _vm._v(
-                "\n                    " +
-                  _vm._s(todo.name) +
-                  "\n                    "
-              ),
-              _c(
-                "button",
-                {
-                  staticClass: "btn text-danger",
-                  on: {
-                    click: function ($event) {
-                      return _vm.removeTodo($event)
-                    },
-                  },
-                },
-                [_vm._v("×")]
-              ),
-            ])
-          }),
-          0
+          "table",
+          { staticClass: "table table-hover table-striped mt-3 text-center" },
+          [
+            _vm._m(0),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              { attrs: { id: "list" } },
+              _vm._l(_vm.allTodos, function (todo) {
+                return _c("tr", [
+                  _c("td", [_vm._v(_vm._s(todo.name))]),
+                  _vm._v(" "),
+                  _c("td", { attrs: { id: todo.id } }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        on: {
+                          click: function ($event) {
+                            return _vm.removeTodo($event)
+                          },
+                        },
+                      },
+                      [_vm._v("Delete")]
+                    ),
+                  ]),
+                ])
+              }),
+              0
+            ),
+          ]
         ),
-      ]),
-    ]),
+      ]
+    ),
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Task")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Action")]),
+      ]),
+    ])
+  },
+]
 render._withStripped = true
 
 

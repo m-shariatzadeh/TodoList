@@ -9,18 +9,22 @@
 @endsection
 @section('content')
     <div class="row mx-0 mt-lg-5"  id="app">
-        <div class="col-md-3 offset-md-4">
+        <div class="col">
             <div class="form-inline">
                 <div class="row">
-                    <div class="col">
-                        <input type="text" class="form-control" name="taskInput" id="taskInput" placeholder="Enter task">
-                    </div>
-                    <div class="col">
-                        <button type="button" class="btn btn-primary" id="btn_Add">Add Task</button>
+                    <div class="col-md-4 offset-md-3">
+                        <div class="row">
+                            <div class="col">
+                                <input type="text" class="form-control" name="taskInput" id="taskInput" placeholder="Enter task">
+                            </div>
+                            <div class="col">
+                                <button type="button" class="btn btn-primary" id="btn_Add">Add Task</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <todo-list></todo-list>
             </div>
+            <todo-list></todo-list>
         </div>
     </div>
 @endsection
@@ -46,9 +50,9 @@
                     socket.emit('receiveTask', todo_name);
                     axios.post('/api/todos', {'task': todo_name}).then(res => {
                         // console.log($('#list li').id);
-                        if ($('#list li#undefined'))
+                        if ($('#list tr td#undefined'))
                         {
-                            $('#list li#undefined').attr('id',res.data.todo.id)
+                            $('#list tr td#undefined').attr('id',res.data.todo.id)
                         }
                     }).catch(err => {
                         console.log(err)
@@ -60,15 +64,16 @@
             })
 
             socket.on('AddTask', (task) => {
-                $('#list').append(`<li id="${todo_id}">
-                    ${task}
-                    <button class="btn text-danger" onclick="removeTodo(event)">&times;</button>
-                </li>`);
+                $('#list').append(`<tr>
+                <td> ${task} </td>
+                <td id="${todo_id}">
+                    <button class="btn btn-danger" onclick="removeTodo(event)">Delete</button>
+                </td></tr>`);
                 // console.log(task)
             })
 
             socket.on('removeTask', (task) => {
-                $(`#${task}`).remove();
+                $(`#${task}`).parent().remove();
             })
 
         });
