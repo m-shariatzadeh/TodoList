@@ -44,6 +44,22 @@ class User extends Authenticatable
 
     public function tasks()
     {
-        return $this->hasMany(Todo::class);
+        return $this->belongsToMany(Todo::class,'todos_users');
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class,'roles_users');
+    }
+
+    public function isAdmin()
+    {
+        foreach ($this->roles as $role)
+        {
+            if ($role->name == 'admin') {
+                return true;
+            }
+        }
+        return false;
     }
 }

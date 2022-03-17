@@ -21,10 +21,19 @@
                                 <button type="button" class="btn btn-primary" id="btn_Add">Add Task</button>
                             </div>
                         </div>
+                        @if (session('success'))
+                            <div class="alert alert-success text-center mb-0 mt-4">
+                                {{ session('success') }}
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
-            <todo-list></todo-list>
+            @can('task-assign')
+                <todo-list assign="{{ true }}"></todo-list>
+            @else
+                <todo-list assign="{{ false }}"></todo-list>
+            @endcan
         </div>
     </div>
 @endsection
@@ -54,10 +63,14 @@
                         {
                             $('#list tr td#undefined').attr('id',res.data.todo.id)
                         }
+                        if ($("[href='api/todos/undefined/edit']"))
+                        {
+                            $("[href='api/todos/undefined/edit']").attr('href',`api/todos/${res.data.todo.id}/edit`)
+                        }
                     }).catch(err => {
                         console.log(err)
                     })
-                    // console.log(res)
+
                     taskInput.val('');
                     return false;
                 }
@@ -68,6 +81,9 @@
                 <td> ${task} </td>
                 <td id="${todo_id}">
                     <button class="btn btn-danger" onclick="removeTodo(event)">Delete</button>
+                @if (\Illuminate\Support\Facades\Gate::allows('task-assign',auth()->user()))
+                    <a class="btn btn-warning" href="api/todos/undefined/edit">Assign Todo</a>
+                @endif
                 </td></tr>`);
                 // console.log(task)
             })
@@ -85,7 +101,7 @@
             socket.emit('removeTask', task);
 
             axios.delete('/api/todos/' + task).then(res =>{
-                // console.log(res.data)
+                console.log(res.data)
             }).catch(err => {
                 console.log(err)
             })

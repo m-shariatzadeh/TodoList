@@ -21,6 +21,7 @@ window.Vue = require('vue').default;
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('todo-list', require('./components/TodoList.vue').default);
+Vue.component('users-list', require('./components/UsersList.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
