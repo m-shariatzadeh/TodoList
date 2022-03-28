@@ -1,4 +1,5 @@
 @extends('layouts.master')
+@section('title','Assign Todo')
 
 @section('style')
     <style>

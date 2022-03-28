@@ -27,7 +27,10 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('task-assign',function (User $user){
-//            dd($user);
+            return $user->isAdmin();
+        });
+
+        Gate::define('notification-admin',function (User $user){
             return $user->isAdmin();
         });
     }

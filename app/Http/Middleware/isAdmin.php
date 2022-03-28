@@ -21,7 +21,8 @@ class isAdmin
         if (Auth::check() && Auth::user()->isAdmin()) {
             return $next($request);
         }else {
-            return to_route('todo');
+//            return to_route('home');
+                abort(404);
         }
     }
 }

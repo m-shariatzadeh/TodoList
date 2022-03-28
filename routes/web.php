@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\TodoController;
 use App\Http\Controllers\TodoGroupController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +27,10 @@ Route::middleware('auth')->get('todo',function (){
     return view('todo.index');
 })->name('todo');
 
+Route::middleware(['auth','isAdmin'])->controller(NotificationController::class)->group(function (){
+    Route::get('notification','index')->name('notification.index');
+    Route::post('notification/store','store')->name('notification.store');
+});
 
 Route::resource('api/todos',TodoController::class)->middleware('auth');
 Route::get('api/usersList',[UserController::class,'index'])->middleware('auth');

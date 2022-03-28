@@ -14,6 +14,10 @@
                         </div>
                     @endif
                         <a href="{{ route('todo') }}">Your Todo List</a>
+                        @can('notification-admin')
+                            <span class="mx-3"></span>
+                            <a href="{{ route('notification.index') }}">Notifications</a>
+                        @endcan
                 </div>
             </div>
         </div>
