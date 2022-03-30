@@ -7,6 +7,7 @@ use App\Notifications\SendMailNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Session;
 
 class NotificationController extends Controller
 {
@@ -22,5 +23,8 @@ class NotificationController extends Controller
 
         $users = User::where('id','!=',Auth::id())->get();
         Notification::send($users,new SendMailNotification($subject,$description));
+
+        Session::flash('sent','اطلاعیه با موفقیت ارسال شد');
+        return to_route('notification.index');
     }
 }

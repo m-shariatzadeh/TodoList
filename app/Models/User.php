@@ -52,6 +52,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class,'roles_users');
     }
 
+    public function files()
+    {
+        return $this->hasMany(File::class);
+    }
+
     public function isAdmin()
     {
         foreach ($this->roles as $role)

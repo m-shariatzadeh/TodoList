@@ -4,6 +4,11 @@
 @section('content')
     <div class="row mt-lg-5 mx-0">
         <div class="col-md-3 offset-md-4">
+            @if(session('sent'))
+                <div class="alert alert-success text-center">
+                    {{ session('sent') }}
+                </div>
+            @endif
             <form action="{{ route('notification.store') }}" method="post">
                 @csrf
                 <div>

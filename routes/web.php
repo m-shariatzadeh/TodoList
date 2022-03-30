@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\TodoController;
-use App\Http\Controllers\TodoGroupController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
+
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +37,11 @@ Route::middleware(['auth','isAdmin'])->controller(NotificationController::class)
 Route::resource('api/todos',TodoController::class)->middleware('auth');
 Route::get('api/usersList',[UserController::class,'index'])->middleware('auth');
 //Route::get('api/usersList/{user}',[UserController::class,'test'])->middleware('auth');
+
+Route::middleware(['auth'])->controller(FileController::class)->group(function (){
+    Route::get('upload','index')->name('upload');
+    Route::post('uploading','store')->name('uploading');
+});
 
 Auth::routes();
 

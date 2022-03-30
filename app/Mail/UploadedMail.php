@@ -7,21 +7,21 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class NotifMail extends Mailable implements ShouldQueue
+class UploadedMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    private $users;
+    private $user;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($users)
+    public function __construct($user)
     {
         //
-        $this->users = $users;
+        $this->user = $user;
     }
 
     /**
@@ -31,7 +31,8 @@ class NotifMail extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->markdown('mail.notif-mail')
-        ->to($this->users);
+        return $this->markdown('mail.uploaded-mail',['user' => $this->user])
+            ->to($this->user)
+            ->subject('File Uploaded');
     }
 }
